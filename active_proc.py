@@ -3,23 +3,18 @@ import warnings
 import logging
 import sys
 warnings.filterwarnings("ignore")
-progs = ["chrom","pycharm","telegram","terminal"]
-active_progs = set([])
+
 
 def get_active_proccess():
     procs = [(int(p), c) for p, c in [x.rstrip('\n').split(' ', 1) \
                                      for x in os.popen("ps h -eo pid:1,command")]]
     k = 0
-
+    active_procs = set([])
     for proc in procs:
+        active_procs.add(proc[1])
 
-        for prog in progs:
-            if prog in proc[1]:
-                # print(prog)
-                active_progs.add(prog)
-                break
 
-    return active_progs
+    return active_procs
 
 
 
@@ -83,9 +78,6 @@ def get_active_window():
         print("sys.platform={platform} is unknown. Please report."
               .format(platform=sys.platform))
         print(sys.version)
-    for prog in progs:
-        if prog in active_window_name:
-            active_window_name = prog
-    return active_window_name
 
-print(get_active_proccess(),get_active_window())
+    return str(active_window_name)
+
