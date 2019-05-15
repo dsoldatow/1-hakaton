@@ -73,12 +73,6 @@ def main():
         time.sleep(30)
 
 
-# 30 seconds => add_info("")
-# 1thread clicker 2thread active 3thread main thread
-# main thread start: request(localhost://addUser data={name,surname,photo})
-# add info(data: datetime, active_history[{proc:name, tim},{}],[,photo],[massiv] : [screencast])
-
-
 if __name__ == "__main__":
     main_thread = Thread(target=main)
     active_thread = Thread(target=active_progs)
