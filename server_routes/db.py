@@ -116,12 +116,12 @@ def get_info(surname):
     }
     user  = {"name" : sql_execute("""
                                 SELECT name
-                                FROM user
+                                FROM users
                                 WHERE surname = '{surname}'
                                 limit 1""".format(surname=surname)),
              "photo": sql_execute("""
                                 SELECT photo
-                                FROM user
+                                FROM users
                                 WHERE surname = '{surname}'
                                 limit 1""".format(surname=surname))}
     dataset = {
