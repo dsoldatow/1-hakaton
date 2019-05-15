@@ -17,7 +17,7 @@ from time import sleep
 
 @app.route("/getuser/<surname>",methods=["GET"])
 def getuser(surname):
-    return json.dumps(db.get_info(surname))
+    return json.dumps(db.get_info(surname)),200,{'Access-Control-Allow-Origin': '*'}
 
 
 

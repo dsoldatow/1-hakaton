@@ -114,12 +114,25 @@ def get_info(surname):
                                 FROM history
                                 WHERE surname = '{surname}'""".format(surname=surname))
     }
+    user  = {"name" : sql_execute("""
+                                SELECT name
+                                FROM user
+                                WHERE surname = '{surname}'
+                                limit 1""".format(surname=surname)),
+             "photo": sql_execute("""
+                                SELECT photo
+                                FROM user
+                                WHERE surname = '{surname}'
+                                limit 1""".format(surname=surname))}
     dataset = {
         "efs":efs,
         "screenshots":scr,
         "photos":photos,
         "clicks":clicks,
-        "history":history
+        "history":history,
+        "surname":surname,
+        "name":user.get("name"),
+        "photo":user.get("photo")
     }
     return dataset
 
