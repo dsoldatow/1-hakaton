@@ -29,10 +29,16 @@ def add_info():
 
     history_times = []
     history_progs = []
+    ch =0
+    znm = 1
 
-    efs_coef = 0
     for i in dataDict.get("active_history"):
-        if i in:
+        if i.get("proc") in work_progs:
+            ch += i.get("time")
+        elif i.get("proc") in harm_progs:
+            znm += i.get("time")
+
+    efs_coef = ch/znm
 
     for i in dataDict.get("active_history"):
         history_times.append(i.get("time"))
