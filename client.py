@@ -3,16 +3,17 @@ import screenshot.screenshoter as screen
 import dawn_mode as listener
 from active_proc import *
 import datetime
-import threading
+from threading import Thread
 import time
 import requests
 import predObr
 
-#get_active_window()
+# get_active_window()
 active_hist = []
 photo = camera.make_photo()
 screenshot = screen.get_screen_shot()
 clicks = []
+
 
 def active_progs():
     global active_hist
@@ -64,15 +65,26 @@ def main():
         requests.post("http://localhost:5050/addInfo", data={"surname": surname,
                                                              "date": datetime.datetime.now(),
                                                              "active_hist": active_hist,
-                                                             "photos": photo,
-                                                             "screenshots": screenshot,
+                                                             "photo": photo,
+                                                             "screenshot": screenshot,
                                                              "clicks": clicks})
         time.sleep(30)
 
 
+# 30 seconds => add_info("")
+# 1thread clicker 2thread active 3thread main thread
+# main thread start: request(localhost://addUser data={name,surname,photo})
+# add info(data: datetime, active_history[{proc:name, tim},{}],[,photo],[massiv] : [screencast])
 
-#30 seconds => add_info("")
 
-#1thread clicker 2thread active 3thread main thread
-#main thread start: request(localhost://addUser data={name,surname,photo})
-#add info(data: datetime, active_history[{proc:name, tim},{}],[,photo],[massiv] : [screencast])
+if __name__ == "__main__":
+    main_thread = Thread(target=main)
+    active_thread = Thread(target=active_progs)
+    clicker_thread = Thread(target=clicker)
+
+    main_thread.start()
+    active_thread.start()
+    clicker_thread.start()
+    main_thread.join()
+    active_thread.join()
+    clicker_thread.join()
