@@ -59,15 +59,16 @@ def main():
     with open('start.txt', 'r') as file:
         name, surname = file.readline().split()
         start_photo = get_photo()
-        requests.post("http://localhost:5050/add_user", data=json.dumps({"name": name, "surname": surname, "photo": b64encode(start_photo).decode()}))
+        print(start_photo)
+        requests.post("http://0.0.0.0:5050/add_user", data=json.dumps({"name": name, "surname": surname, "photo": (start_photo)}))
     time.sleep(10)
     while True:
         photo = camera.make_photo()
         screenshot = screen.get_screen_shot()
-        requests.post("http://localhost:5050/addInfo", data=json.dumps({"surname": surname,
+        requests.post("http://0.0.0.0:5050/addInfo", data=json.dumps({"surname": surname,
                                                                        "date": str(datetime.datetime.now()),
                                                                        "active_hist": active_hist,
-                                                                       "photo": b64encode(photo).decode(),
+                                                                       "photo": (photo),
                                                                        "screenshot": screenshot,
                                                                        "clicks": clicks}))
         time.sleep(30)
