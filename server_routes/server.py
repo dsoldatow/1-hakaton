@@ -35,22 +35,22 @@ def addInfo():
 
 @app.route("/getusers/<search>",methods = ["GET"])
 def get_users(search):
-
-    if search == "0":
-        name,surname = None, None
-        splitted=""
-    else:
-        splitted = search.split()
-        if len(splitted) >= 2:
-            name, surname = splitted[0], splitted[1]
-        else:
-            name = splitted[0]
-            surname = '*'
-    if not name and not surname:
-        users = db.get_users()
-    else:
-        users = db.get_find_users(name, surname)
-
+    users = db.get_users()
+    # if search == "0":
+    #     name,surname = None, None
+    #     splitted=""
+    # else:
+    #     splitted = search.split()
+    #     if len(splitted) >= 2:
+    #         name, surname = splitted[0], splitted[1]
+    #     else:
+    #         name = splitted[0]
+    #         surname = '*'
+    # if not name and not surname:
+    #     users = db.get_users()
+    # else:
+    #     users = db.get_find_users(name, surname)
+    #
     partuser = []
     for i in users:
         # if  (name in i.get("surname") and surname in i.get("name")) or (surname in i.get("surname") and name in i.get("name")):

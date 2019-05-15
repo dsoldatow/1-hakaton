@@ -6,7 +6,7 @@ from base64 import b64encode
 from datetime import datetime
 
 def sql_execute(sql_give):
-    conn = psycopg2.connect(dbname='postgres', user='postgres', password='postgres', host='localhost')
+    conn = psycopg2.connect(dbname='hakabase', user='hakabase', password='hakabase', host='localhost')
     cursor = conn.cursor(cursor_factory=RealDictCursor)
     answer = None
 
@@ -84,14 +84,11 @@ def get_find_users(name, surname):
     """.format(name=name, surname=surname))
 
 def add_user(user):
-    encode = recogniser.encode_image(user.get('photo'))
-    user.get('photo').seek(0)
-    user['photo'] = b64encode(user.get('photo').read()).decode()
-    user.update({"encoding": encode})
+
 
     sql = """
-    INSERT INTO users2(name,surname,photo,status,encoding) 
-    VALUES ('{name}','{surname}','{photo}','Unknown','{encoding}')""".format(**user)
+    INSERT INTO users(name,surname,photo) 
+    VALUES ('{name}','{surname}','{photo}')""".format(**user)
     sql_execute(sql)
     print(sql)
 
