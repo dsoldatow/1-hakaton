@@ -65,7 +65,7 @@ def main():
         photo = camera.make_photo()
         screenshot = screen.get_screen_shot()
         requests.post("http://localhost:5050/addInfo", data=json.dumps({"surname": surname,
-                                                                       "date": datetime.datetime.now(),
+                                                                       "date": str(datetime.datetime.now()),
                                                                        "active_hist": active_hist,
                                                                        "photo": b64encode(photo).decode(),
                                                                        "screenshot": screenshot,
