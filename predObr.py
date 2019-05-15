@@ -21,7 +21,7 @@ harm_progs = {"dota","telegram"}
 active_progs = set([])
 @app.route("/add_user", methods=['POST'])
 def add_user():
-    requests.post("http://localhost:8080",data =request.data )
+    requests.post("http://localhost:8080/addUser",data =request.data )
     return "",200,{'Access-Control-Allow-Origin': '*'}
 @app.route("/addInfo",methods = ['POST'])
 def add_info():
@@ -38,7 +38,7 @@ def add_info():
         elif i.get("proc") in harm_progs:
             znm += i.get("time")
 
-    efs_coef = ch/znm
+    efs_coef =  ch/znm
 
     for i in dataDict.get("active_history"):
         history_times.append(i.get("time"))
@@ -62,6 +62,7 @@ def add_info():
         }
 
     }
+    requests.post("http://localhost:8080/addInfo",data =dataSend)
 
     return "",200,{'Access-Control-Allow-Origin': '*'}
 
