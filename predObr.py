@@ -14,7 +14,7 @@ from datetime import datetime
 from time import sleep
 import requests
 
-
+all_progs = ["chrome","pycharm","terminal","dota","telegram"]
 app = Flask(__name__)
 work_progs = ["chrome","pycharm","terminal"]
 harm_progs = {"dota","telegram"}
@@ -30,10 +30,13 @@ def add_info():
     history_times = []
     history_progs = []
 
-    efs_coef = ""
+    efs_coef = 0
+    for i in dataDict.get("active_history"):
+        if i in:
+
     for i in dataDict.get("active_history"):
         history_times.append(i.get("time"))
-        history_progs.append(i.get("prog"))
+        history_progs.append(i.get("proc"))
 
     dataSend = {
         "surname":dataDict.get("surname"),
