@@ -25,28 +25,31 @@
                 var text = document.getElementById("us").value;
                 if (text == "") text = "0";
 
-                $scope.status = ['ML, Front', 'ML, Back', 'Back', 'Accountant', 'Accountant', 'CEO']
-
                 TC.database = [{
                     surname: 'Mamedov',
                     name: 'Valentin',
-                    photo: 'https://www.kino-teatr.ru/news/10985/106732.jpg'
+                    photo: 'https://www.kino-teatr.ru/news/10985/106732.jpg',
+                    status:'ML, Front'
                 }, {
                     surname: 'Savchenko',
                     name: 'Ivan',
-                    photo: 'https://gorabbit.ru/upload/resize_cache/iblock/7a2/480_300_2/7a206ca71129095b6ad794b451331992.jpg'
+                    photo: 'https://gorabbit.ru/upload/resize_cache/iblock/7a2/480_300_2/7a206ca71129095b6ad794b451331992.jpg',
+                    status:'ML, Back'
                 }, {
                     surname: 'Soldatov',
                     name: 'Denis',
-                    photo: 'https://stickerzone.shop/wp-content/uploads/2018/06/%D0%A0%D0%B8%D0%BA-6.png'
+                    photo: 'https://stickerzone.shop/wp-content/uploads/2018/06/%D0%A0%D0%B8%D0%BA-6.png',
+                    status:'Back'
                 }, {
                     surname: 'Mamedova',
                     name: 'Viktoria',
-                    photo: 'https://www.vokrug.tv/pic/person/6/d/0/5/6d0567252a031e0fef5c0a7a4507501e.jpeg'
+                    photo: 'https://www.vokrug.tv/pic/person/6/d/0/5/6d0567252a031e0fef5c0a7a4507501e.jpeg',
+                    status:'Accountant'
                 }, {
                     surname: 'Mamedov',
                     name: 'Yuri',
-                    photo: 'https://www.vladtime.ru/uploads/posts/2018-08/1533394201_maxresdefault.jpg'
+                    photo: 'https://www.vladtime.ru/uploads/posts/2018-08/1533394201_maxresdefault.jpg',
+                    status:'CEO'
                 }]
 
 
@@ -106,13 +109,15 @@
             <tr ng-repeat='user in tc.database'>
                 <td><a><img name={{user.name}}
                             title={{user.surname}}
-                            src={{user.photo}}
+                            id='base64image'
+                            src="{{user.photo}}"
                             class="round"
+                            data-toggle="modal"
                             width="200" height="150" onclick=user_page(this)
                 /></a></td>
                 <td>{{user.surname}}</td>
                 <td>{{user.name}}</td>
-                <td>1C программист</td>
+                <td>{{user.status}}</td>
             </tr>
             </tbody>
         </table>

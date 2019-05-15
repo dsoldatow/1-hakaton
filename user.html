@@ -175,7 +175,6 @@
                     '    </bodybutton>\n' +
                     '</div>';
 
-                var photo = "<img src='";
                 var photo_data = ['http://n1s1.hsmedia.ru/9e/52/70/9e52706dc8521c704c1ea4c44021b428/680x374_21_150322727fd8158d3110f155aa91e3bc@690x380_0xc0a8392b_11318839251497957095.jpeg']
 
                 // $http
@@ -190,7 +189,7 @@
                 //     });
 
                 for (let i = 0; i < photo_data.length; i++) {
-                    let tmp = photo + photo_data[i] + "' ><h3> </h3>";
+                    let tmp = "<img src='" + photo_data[i] + "' ><h3> </h3>";
                     photos_to_show += tmp;
                 }
 
@@ -262,6 +261,11 @@
                 document.getElementById('myDiv').innerHTML = '';
                 Plotly.newPlot("myDiv", data, layout);
             };
+
+            window.timetable = function () {
+                var timetable = "<img src='timetable.png' width='100%' height='100%'><h3> </h3>";
+                document.getElementById('myDiv').innerHTML = timetable;
+            }
 
 
             window.task = function () {
@@ -400,30 +404,35 @@
                 <div class="container">
                     <div class="row">
                         <div class="col-sm-4">
-                            <button style="font-size: 20px" alt={{name}} class="btn btn-lg btn-block btn-primary" onclick=popular(this)>
+                            <button style="font-size: 20px" alt={{name}} class="btn btn-lg btn-block btn-primary" onclick=popular()>
                                 <b>Программы</b></button>
                         </div>
                         <div class="col-sm-4">
-                            <button style="font-size: 20px" alt={{name}} class="btn btn-lg btn-block btn-primary" onclick=kpd(this)><b>Эффективность</b>
+                            <button style="font-size: 20px" alt={{name}} class="btn btn-lg btn-block btn-primary" onclick=kpd()><b>Эффективность</b>
                             </button>
                         </div>
                         <div class="col-sm-4">
-                            <button style="font-size: 20px" alt={{name}} class="btn btn-lg btn-block btn-primary" onclick=screens(this)>
+                            <button style="font-size: 20px" alt={{name}} class="btn btn-lg btn-block btn-primary" onclick=screens()>
                                 <b>Фотоотчет</b>
                             </button>
                         </div>
                         <div class="col-sm-4">
-                            <button style="font-size: 20px" alt={{name}} class="btn btn-lg btn-block btn-primary" onclick=clicks(this)>
+                            <button style="font-size: 20px" alt={{name}} class="btn btn-lg btn-block btn-primary" onclick=clicks()>
                                 <b>Клики</b>
                             </button>
                         </div>
+                        <!--<div class="col-sm-4">-->
+                            <!--<button style="font-size: 20px" alt={{name}} class="btn btn-lg btn-block btn-primary" onclick=rating(this)>-->
+                                <!--<b>Рейтинг</b>-->
+                            <!--</button>-->
+                        <!--</div>-->
                         <div class="col-sm-4">
-                            <button style="font-size: 20px" alt={{name}} class="btn btn-lg btn-block btn-primary" onclick=rating(this)>
-                                <b>Рейтинг</b>
+                            <button style="font-size: 20px" alt={{name}} class="btn btn-lg btn-block btn-primary" onclick=timetable()>
+                                <b>Расписание</b>
                             </button>
                         </div>
                         <div class="col-sm-4">
-                            <button style="font-size: 20px" alt={{name}} class="btn btn-lg btn-block btn-primary" onclick=task(this)>
+                            <button style="font-size: 20px" alt={{name}} class="btn btn-lg btn-block btn-primary" onclick=task()>
                                 <b>Задачи</b>
                             </button>
                         </div>
