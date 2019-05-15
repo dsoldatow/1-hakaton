@@ -8,7 +8,7 @@ def get_screen_shot():
     img_byte_arr = BytesIO()
     image.save(img_byte_arr, format='PNG')
     img_byte_arr = img_byte_arr.getvalue()
-    encoded_image = b64encode(img_byte_arr)
+    encoded_image = b64encode(img_byte_arr).decode()
     return encoded_image
 
 

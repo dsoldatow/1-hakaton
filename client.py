@@ -8,6 +8,7 @@ import time
 import requests
 import predObr
 import json
+from base64 import b64encode
 
 # get_active_window()
 active_hist = []
@@ -58,16 +59,16 @@ def main():
     with open('start.txt', 'r') as file:
         name, surname = file.readline().split()
         start_photo = get_photo()
-        requests.post("http://localhost:5050/addUser", data=json.dump({"name": name, "surname": surname, "photo": start_photo}))
+        requests.post("http://localhost:5050/addUser", data=json.dumps({"name": name, "surname": surname, "photo": b64encode(start_photo).decode()}))
     time.sleep(300)
     while True:
         photo = camera.make_photo()
         screenshot = screen.get_screen_shot()
-        requests.post("http://localhost:5050/addInfo", data=json.dump({"surname": surname,
+        requests.post("http://localhost:5050/addInfo", data=json.dumps({"surname": surname,
                                                                        "date": datetime.datetime.now(),
                                                                        "active_hist": active_hist,
-                                                                       "photo": photo,
-                                                                       "screenshot": screenshot,
+                                                                       "photo": b64encode(photo).decode(),
+                                                                       "screenshot": b64encode(screenshot).decode(),
                                                                        "clicks": clicks}))
         time.sleep(30)
 

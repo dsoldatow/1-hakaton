@@ -1,12 +1,11 @@
 
 from flask import Flask, request
 
-from werkzeug import abort
+# from werkzeug import abort
 from flask import Flask, request
 import urllib.request
 import json
 from multiprocessing import Process
-from server_routes import db
 import os
 import random
 import string

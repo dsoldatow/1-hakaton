@@ -39,7 +39,7 @@ def get_active_window():
         try:
             import wnck
         except ImportError:
-            logging.info("wnck not installed")
+            pass
             wnck = None
         if wnck is not None:
             screen = wnck.screen_get_default()
