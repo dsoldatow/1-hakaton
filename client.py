@@ -14,7 +14,7 @@ from base64 import b64encode
 active_hist = []
 photo = camera.make_photo()
 screenshot = screen.get_screen_shot()
-clicks = []
+clicks = {}
 
 
 def active_progs():
@@ -59,8 +59,8 @@ def main():
     with open('start.txt', 'r') as file:
         name, surname = file.readline().split()
         start_photo = get_photo()
-        requests.post("http://localhost:5050/addUser", data=json.dumps({"name": name, "surname": surname, "photo": b64encode(start_photo).decode()}))
-    time.sleep(300)
+        requests.post("http://localhost:5050/add_user", data=json.dumps({"name": name, "surname": surname, "photo": b64encode(start_photo).decode()}))
+    time.sleep(10)
     while True:
         photo = camera.make_photo()
         screenshot = screen.get_screen_shot()
@@ -68,7 +68,7 @@ def main():
                                                                        "date": datetime.datetime.now(),
                                                                        "active_hist": active_hist,
                                                                        "photo": b64encode(photo).decode(),
-                                                                       "screenshot": b64encode(screenshot).decode(),
+                                                                       "screenshot": screenshot,
                                                                        "clicks": clicks}))
         time.sleep(30)
 
