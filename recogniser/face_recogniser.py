@@ -4,6 +4,13 @@ import time
 from base64 import b64encode
 
 
+def make_photo():
+    cap = cv2.VideoCapture(0)
+    _, frame = cap.read()
+    # rgb_frame = frame[:, :, ::-1]
+    cap.release()
+    return b64encode(frame)
+
 def is_user_here():
     cap = cv2.VideoCapture(0)
     beg_time = time.time()
