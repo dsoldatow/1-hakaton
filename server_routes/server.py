@@ -25,8 +25,8 @@ def addInfo():
     dataDict = json.loads(request.data)
     users =db.get_users()
     for user in users:
-        if user.id == dataDict.get("id"):
-            db.update(dataDict.get("id"),dataDict)
+        if user.surname == dataDict.get("surname"):
+            db.add_info(dataDict)
             return "",200, {'Access-Control-Allow-Origin': '*'}
 
 

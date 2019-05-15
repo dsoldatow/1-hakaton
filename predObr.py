@@ -51,7 +51,7 @@ def add_info():
         "history":{ "values":history_times,
                     "labels":history_progs,
         },
-        "efs":{ "x":dataDict("date"),
+        "efs":{ "x":dataDict.get("date"),
                 "y":efs_coef
         },
         "clicks":{

@@ -22,17 +22,50 @@ def sql_execute(sql_give):
         cursor.close()
         return answer
 
+def add_user(user):
 
+
+    sql = """
+    INSERT INTO users(name,surname,photo) 
+    VALUES ('{name}','{surname}','{photo}')""".format(**user)
+    sql_execute(sql)
+    print(sql)
 # https://khashtamov.com/ru/postgresql-python-psycopg2/
-cache_user = SimpleCache()
+
+def add_info(dataDict):
+    sql = """
+    INSERT INTO scr(surname,scr)
+    VALUES('{surname}','{screenshot}')""".format(**dataDict)
+    sql_execute(sql)
+    sql = """
+    INSERT INTO photo(surname,photo)
+    VALUES('{surname}','{photo}')""".format(**dataDict)
+    sql_execute(sql)
+    his = []
+    # "history": {"values": history_times,
+    #             "labels": history_progs,
+    for i in  dataDict.get("history").get("values"):
+        his.append({"ti":i})
+    for j,i in enumerate(dataDict.get("history").get("labels")):
+        his[j].update({"pr":i,"sur":dataDict.get("surname")})
+    for history in his:
+        sql = """
+            INSERT INTO history(surname,prog,time)
+            VALUES('{sur}','{pr}','{ti}').format(**history)
+        """
+        sql_execute(sql)
+    dataDict.get("efs").update({"sur":dataDict.get("surname")})
+    sql = """INSERT INTO efs(surname,prog,time)
+             VALUES('{sur}','{x}','{y}')""".format(**dataDict)
+    sql_execute(sql)
+
+    sql = """INSERT INTO clicks(date,total,right,left)
+             VALUES('{date}','{total}','{right}','{left}')""".format(**dataDict.get("clicks"))
+    sql_execute(sql)
+
+    
 
 
-def get_info(status):
-    return sql_execute("""
-    select name, surname, status
-    from users2
-    where status = '{status}'
-    """.format(status=status))
 
 
 def get_users():
@@ -83,14 +116,7 @@ def get_find_users(name, surname):
     order by id
     """.format(name=name, surname=surname))
 
-def add_user(user):
 
-
-    sql = """
-    INSERT INTO users(name,surname,photo) 
-    VALUES ('{name}','{surname}','{photo}')""".format(**user)
-    sql_execute(sql)
-    print(sql)
 
 
 
