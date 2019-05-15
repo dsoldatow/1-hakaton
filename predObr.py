@@ -33,7 +33,7 @@ def add_info():
     efs_coef = ""
     for i in dataDict.get("active_history"):
         history_times.append(i.get("time"))
-        history_progs.append(i.get(""))
+        history_progs.append(i.get("prog"))
 
     dataSend = {
         "surname":dataDict.get("surname"),
