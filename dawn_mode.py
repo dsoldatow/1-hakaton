@@ -70,9 +70,9 @@ def stop():
     working = False
     keyboard.stop()
     mouse.stop()
-    return  {'total': letters_dictionary['total'],
-             'right':letters_dictionary['Button.left'],
-             'left':letters_dictionary['Button.right']}
+    return {'total': letters_dictionary['total'],
+            'right': letters_dictionary['Button.left'],
+            'left': letters_dictionary['Button.right']}
 
 
 if __name__ == '__main__':

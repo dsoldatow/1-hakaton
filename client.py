@@ -6,6 +6,7 @@ import datetime
 import threading
 import time
 import requests
+import predObr
 
 #get_active_window()
 active_hist = []
@@ -19,6 +20,9 @@ def active_progs():
     start = datetime.datetime.now()
     while True:
         active_window = get_active_window()
+        if active_window not in predObr.all_progs:
+            time.sleep(5)
+            continue
         if prev_active != active_window:
             finish = datetime.datetime.now()
             for i in active_hist:
