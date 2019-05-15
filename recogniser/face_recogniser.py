@@ -7,9 +7,13 @@ from base64 import b64encode
 def make_photo():
     cap = cv2.VideoCapture(0)
     _, frame = cap.read()
-    # rgb_frame = frame[:, :, ::-1]
+    rgb_frame = frame[:, :, ::-1]
     cap.release()
-    return b64encode(frame).decode()
+    cv2.imwrite("photo.png", frame)
+    with open("photo.png", 'rb') as fin:
+        img_data = fin.read()
+        encoded_img = b64encode(img_data).decode()
+    return encoded_img
 
 def is_user_here():
     cap = cv2.VideoCapture(0)
