@@ -20,7 +20,7 @@ harm_progs = {"dota","telegram"}
 active_progs = set([])
 @app.route("/add_user", methods=['POST'])
 def add_user():
-    requests.post("http://localhost:8080/addUser",data =json.dumps(json.loads(request.data)) )
+    requests.post("http://localhost:8080/add_user",data =json.dumps(json.loads(request.data)) )
     return "",200,{'Access-Control-Allow-Origin': '*'}
 @app.route("/addInfo",methods = ['POST'])
 def add_info():

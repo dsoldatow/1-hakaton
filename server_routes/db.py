@@ -55,18 +55,23 @@ def add_info(dataDict):
         """
         sql_execute(sql)
     dataDict.get("efs").update({"sur":dataDict.get("surname")})
-    sql = """INSERT INTO efs(surname,prog,time)
+    sql = """INSERT INTO efs(surname,date,coef)
              VALUES('{sur}','{x}','{y}')""".format(**dataDict)
     sql_execute(sql)
 
-    sql = """INSERT INTO clicks(date,total,right,left)
-             VALUES('{date}','{total}','{right}','{left}')""".format(**dataDict.get("clicks"))
+    sql = """INSERT INTO clicks(total,right,left)
+             VALUES('{total}','{right}','{left}')""".format(**dataDict.get("clicks"))
     sql_execute(sql)
 
     
 
 
-
+def get_info(surname):
+    dataVal9 = {}
+    etfs = {"x":sql_execute("""
+                            SELECT *
+                            FROM efs""")
+            }
 
 def get_users():
 
