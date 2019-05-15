@@ -34,7 +34,7 @@ def add_user(user):
 
 def add_info(dataDict):
     sql = """
-    INSERT INTO scr(surname,scr)
+    INSERT INTO src(surname,photo)
     VALUES('{surname}','{screenshot}')""".format(**dataDict)
     sql_execute(sql)
     sql = """
@@ -51,34 +51,34 @@ def add_info(dataDict):
     for history in his:
         sql = """
             INSERT INTO history(surname,prog,time)
-            VALUES('{sur}','{pr}','{ti}').format(**history)
-        """
+            VALUES('{sur}','{pr}','{ti}')""".format(**history)
+
         sql_execute(sql)
     dataDict.get("efs").update({"sur":dataDict.get("surname")})
-    sql = """INSERT INTO efs(surname,date,coef)
-             VALUES('{sur}','{x}','{y}')""".format(**dataDict)
+    sql = """
+             INSERT INTO efc(surname,date,coef)
+             VALUES('{sur}','{x}','{y}')""".format(**dataDict.get("efs"))
     sql_execute(sql)
-
-    sql = """INSERT INTO clicks(total,right,left)
-             VALUES('{total}','{right}','{left}')""".format(**dataDict.get("clicks"))
+    dataDict.get("clicks").update({"surname":dataDict.get("surname")})
+    sql = """INSERT INTO clicks(surname,total,rightt,leftt)
+             VALUES('{surname}','{total}','{right}','{left}')""".format(**dataDict.get("clicks"))
     sql_execute(sql)
 
     
 
 
-def get_info(surname):
-    dataVal9 = {}
-    etfs = {"x":sql_execute("""
-                            SELECT *
-                            FROM efs""")
-            }
+# def get_info(surname):
+#     dataVal9 = {}
+#     etfs = {"x":sql_execute("""
+#                             SELECT *
+#                             FROM efs""")
+#             }
 
 def get_users():
 
     return sql_execute("""
     SELECT * 
-      , (select date from history h where h.id = u.id order by date desc limit 1) as date
-    FROM users2 u
+    FROM users 
     order by id
     """)
 

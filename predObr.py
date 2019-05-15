@@ -24,14 +24,14 @@ def add_user():
     return "",200,{'Access-Control-Allow-Origin': '*'}
 @app.route("/addInfo",methods = ['POST'])
 def add_info():
-    dataDict = request.data
+    dataDict = json.loads(request.data)
 
     history_times = []
     history_progs = []
     ch =0
     znm = 1
 
-    for i in dataDict.get("active_history"):
+    for i in dataDict.get("active_hist"):
         if i.get("proc") in work_progs:
             ch += i.get("time")
         elif i.get("proc") in harm_progs:
@@ -39,7 +39,7 @@ def add_info():
 
     efs_coef =  ch/znm
 
-    for i in dataDict.get("active_history"):
+    for i in dataDict.get("active_hist"):
         history_times.append(i.get("time"))
         history_progs.append(i.get("proc"))
 
@@ -61,7 +61,7 @@ def add_info():
         }
 
     }
-    requests.post("http://localhost:8080/addInfo",data =dataSend)
+    requests.post("http://localhost:8080/addInfo",data =json.dumps(dataSend))
 
     return "",200,{'Access-Control-Allow-Origin': '*'}
 

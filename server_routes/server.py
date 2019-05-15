@@ -23,11 +23,9 @@ from time import sleep
 @app.route('/addInfo', methods=["POST"])
 def addInfo():
     dataDict = json.loads(request.data)
-    users =db.get_users()
-    for user in users:
-        if user.surname == dataDict.get("surname"):
-            db.add_info(dataDict)
-            return "",200, {'Access-Control-Allow-Origin': '*'}
+
+    db.add_info(dataDict)
+    return "",200, {'Access-Control-Allow-Origin': '*'}
 
 
 
@@ -59,8 +57,6 @@ def get_users(search):
             'id': i.get("id"),
             "name": i.get("name"),
             "surname": i.get("surname"),
-            "status": i.get("status"),
-            "date": i.get("date")
         })
     return json.dumps(partuser), 200, {'Access-Control-Allow-Origin': '*'}
 
