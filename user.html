@@ -21,57 +21,82 @@
             }
 
             function parseGetParams() {
-               var $_GET = {};
-               var __GET = window.location.search.substring(1).split("&");
-               for(var i=0; i<__GET.length; i++) {
-                  var getVar = __GET[i].split("=");
-                  $_GET[getVar[0]] = typeof(getVar[1])=="undefined" ? "" : getVar[1];
-               }
-               return $_GET;
+                var $_GET = {};
+                var __GET = window.location.search.substring(1).split("&");
+                for (var i = 0; i < __GET.length; i++) {
+                    var getVar = __GET[i].split("=");
+                    $_GET[getVar[0]] = typeof (getVar[1]) == "undefined" ? "" : getVar[1];
+                }
+                return $_GET;
             }
 
             var args = parseGetParams();
             console.log(args)
+            var all = {}
             window.getUser = function () {
-                $scope.surname = args.surname;
-                $scope.name = args.name;
-                $scope.photo = args.photo;
-                // $http
-                //     .get('http://0.0.0.0:8080/getuser/' + surname)
-                //     .success(function (result) {
-                //
-                //         $scope.surname = result['surname'];
-                //         $scope.name = result['name'];
-                //         $scope.photo = 'data:image/png;base64, '+ result['photo']+ "'";
-                //     })
-                //     .error(function (error) {
-                //         <!--alert("Error"+error);-->
-                //         ;
-                //     });
+                $http
+                    .get('http://159.69.85.34:8080/getuser/' + args.name)
+                    .success(function (result) {
+                        all = result
+                        $scope.surname = result.surname;
+                        $scope.name = result.name[0].name;
+                        $scope.photo = result.photo[0].photo;
+                        console.log(result)
+                    })
+                    .error(function (error) {
+                        <!--alert("Error"+error);-->
+                        ;
+                    });
             };
-            window.getUser()
+            window.getUser();
+            var popular_data = {
+                'Valentin': {
+                    values: [29, 46, 6, 13, 6],
+                    labels: ['Google Chrome', 'PyCharm', 'Telegram', 'Sublime Text 3'],
+                    type: 'pie'
+                },
+
+                'Yuri': {
+                    values: [67, 4, 29],
+                    labels: ['Firefox', 'Telegram', 'ICQ'],
+                    type: 'pie'
+                },
+                'Ivan': {
+                    values: [28, 15, 44, 13],
+                    labels: ['Google Chrome', 'Dota 2', 'PyCharm', 'Sublime Text 3'],
+                    type: 'pie'
+                },
+                'Viktoria': {
+                    values: [76, 15, 9],
+                    labels: ['Safari', 'VLC', 'Deezer'],
+                    type: 'pie'
+                },
+                'Denis': {
+                    values: [13, 34, 15, 12, 26],
+                    labels: ['Sublime Text 3', 'Google Chrome', 'Deezer', 'Pycharm', 'VLC'],
+                    type: 'pie'
+                }
+            }
 
             window.popular = function () {
-                var data = [{
-                    values: [30, 26, 44],
-                    labels: ['Google Chrome', 'Dota 2', 'PyCharm'],
+                var data = [];
+
+
+                data = [popular_data['Denis']];
+
+
+                var x1 = Math.random();
+                var x2 = Math.random();
+                var x3 = Math.random();
+                var x4 = Math.random();
+                var sum = x1+x2+x3+x4;
+
+                data = [{
+                    values: [x1/sum,x2/sum,x3/sum,x4/sum],
+                    labels: popular_data['Valentin'].labels,
                     type: 'pie'
                 }];
 
-                // $http
-                //     .get('http://0.0.0.0:8080/getuser/' + surname)
-                //     .success(function (result) {
-                //
-                //         data = [{
-                //              values: result['history'].ti,
-                //              labels: result['history'].pr,
-                //              type: 'pie'
-                //         }];
-                //     })
-                //     .error(function (error) {
-                //         <!--alert("Error"+error);-->
-                //         ;
-                //     });
 
                 var layout = {
                     height: '100%',
@@ -82,28 +107,23 @@
             };
 
             window.kpd = function () {
-                var data = {
-                    x: [2, 3, 4, 5],
+                var data = {};
+
+
+
+                data = {
+                    x: [1, 2, 4, 7],
                     y: [16, 5, 11, 9],
                     mode: 'lines',
                     name: 'Current'
                 };
 
-                // $http
-                //     .get('http://0.0.0.0:8080/getuser/' + surname)
-                //     .success(function (result) {
-                //
-                //         data = [{
-                //              x: result['efs'].x,
-                //              y: result['efs'].y,
-                //              mode: 'lines',
-                //              name: 'Current'
-                //         }];
-                //     })
-                //     .error(function (error) {
-                //         <!--alert("Error"+error);-->
-                //         ;
-                //     });
+                // data = [{
+                //     x: all['efs'].x,
+                //     y: all['efs'].y,
+                //     mode: 'scatter',
+                //     name: 'Current'
+                // }];
 
                 var layout = {
                     height: '100%',
@@ -132,25 +152,17 @@
                     '    </bodybutton>\n' +
                     '</div>';
 
-                var photo = "<img src='";
 
-                var photo_data = ['https://www.ya-roditel.ru/upload/medialibrary/15f/15f779e5b19fa041da904c9d30da5cfe.jpg',
-                    'https://www.pravmir.ru/wp-content/uploads/2018/10/Malchik-geroy-600x451.jpg']
+                var photo_data = [];
 
-                // $http
-                //     .get('http://0.0.0.0:8080/getuser/' + surname)
-                //     .success(function (result) {
-                //
-                //         photo_data = result['screenshots']
-                //     })
-                //     .error(function (error) {
-                //         <!--alert("Error"+error);-->
-                //         ;
-                //     });
+                // photo_data = ['https://www.ya-roditel.ru/upload/medialibrary/15f/15f779e5b19fa041da904c9d30da5cfe.jpg',
+                //     'https://www.pravmir.ru/wp-content/uploads/2018/10/Malchik-geroy-600x451.jpg']
+
+                photo_data = all['screenshots'].screenshots;
 
 
                 for (let i = 0; i < photo_data.length; i++) {
-                    let tmp = photo + photo_data[i] + "' width=\"100%\" height=\"100%\"/><h3> </h3>";
+                    let tmp = "<img src='data:image/png;base64, " + photo_data[i].photo + "' id='base64image' width=\"100%\" height=\"100%\"/><h3> </h3>";
                     photos_to_show += tmp;
                 }
 
@@ -175,21 +187,14 @@
                     '    </bodybutton>\n' +
                     '</div>';
 
-                var photo_data = ['http://n1s1.hsmedia.ru/9e/52/70/9e52706dc8521c704c1ea4c44021b428/680x374_21_150322727fd8158d3110f155aa91e3bc@690x380_0xc0a8392b_11318839251497957095.jpeg']
+                var photo_data = [];
+                // photo_data = ['http://n1s1.hsmedia.ru/9e/52/70/9e52706dc8521c704c1ea4c44021b428/680x374_21_150322727fd8158d3110f155aa91e3bc@690x380_0xc0a8392b_11318839251497957095.jpeg']
 
-                // $http
-                //     .get('http://0.0.0.0:8080/getuser/' + surname)
-                //     .success(function (result) {
-                //
-                //         photo_data = result['photos']
-                //     })
-                //     .error(function (error) {
-                //         <!--alert("Error"+error);-->
-                //         ;
-                //     });
+                photo_data = all['photos'].photos;
+
 
                 for (let i = 0; i < photo_data.length; i++) {
-                    let tmp = "<img src='" + photo_data[i] + "' ><h3> </h3>";
+                    let tmp = "<img src='data:image/png;base64, " + photo_data[i].photo + "' id='base64image' ><h3> </h3>";
                     photos_to_show += tmp;
                 }
 
@@ -197,59 +202,57 @@
             };
 
             window.clicks = function () {
-                var x1 = [];
-                var x2 = [];
-                var x3 = [];
-                for (var i = 0; i < 500; i++) {
-                    x1[i] = Math.random();
-                    x2[i] = Math.random();
-                    x3[i] = Math.random();
-                }
 
-                var trace1 = {
-                    x: x1,
+
+                var trace1 = {}
+                // trace1 = {
+                //     x: x1,
+                //     type: "histogram",
+                //     name: 'total'
+                // };
+
+                var trace2 = {}
+                // trace2 = {
+                //     x: x2,
+                //     type: "histogram",
+                //     name: 'rigth'
+                //
+                // };
+                var trace3 = {}
+                // trace3 = {
+                //     x: x3,
+                //     type: "histogram",
+                //     name: 'left'
+                // };
+
+                var tmp = []
+                for (let i = 1; i < all['clicks'].total.length; i++) {
+                    tmp.push(all['clicks'].total[i].total)
+                }
+                trace1 = {
+                    x: tmp,
                     type: "histogram",
                     name: 'total'
                 };
-                var trace2 = {
-                    x: x2,
+                var tmp = []
+                for (let i = 1; i < all['clicks'].right.length; i++) {
+                    tmp.push(all['clicks'].right[i].rightt)
+                }
+                trace2 = {
+                    x: tmp,
                     type: "histogram",
                     name: 'rigth'
 
                 };
-                var trace3 = {
-                    x: x3,
+                var tmp = []
+                for (let i = 1; i < all['clicks'].left.length; i++) {
+                    tmp.push(all['clicks'].left[i].leftt)
+                }
+                trace3 = {
+                    x: all['clicks'].left,
                     type: "histogram",
                     name: 'left'
                 };
-
-                // $http
-                //     .get('http://0.0.0.0:8080/getuser/' + surname)
-                //     .success(function (result) {
-                //
-                //         trace1 = {
-                //             x: result['total'],
-                //             type: "histogram",
-                //             name: 'total'
-                //         };
-                //         trace2 = {
-                //             x: result['rigth'],
-                //             type: "histogram",
-                //             name: 'rigth'
-                //
-                //         };
-                //         trace3 = {
-                //             x: result['left'],
-                //             type: "histogram",
-                //             name: 'left'
-                //         };
-                //
-                //
-                //     })
-                //     .error(function (error) {
-                //         <!--alert("Error"+error);-->
-                //         ;
-                //     });
 
                 var layout = {
                     height: '100%',
@@ -354,7 +357,7 @@
 
             }
 
-            window.popular();
+            window.task();
         });
     </script>
 </head>
@@ -371,7 +374,7 @@
 <div style="margin: 15%; margin-top: 0; margin-bottom: 0;">
     <div class="user-page">
         <div class="user-profile">
-            <img src={{photo}} width="400" height="300"/>
+            <img id='base64image' src="data:image/png;base64, {{photo}}" width="400" height="300"/>
             <h3></h3>
             <div class="user-info">
                 <table class="table" width="">
@@ -388,10 +391,6 @@
                         <th scope="row">Должность:</th>
                         <td>1С программист</td>
                     </tr>
-                    <tr>
-                        <th scope="row">Возраст</th>
-                        <td>12</td>
-                    </tr>
 
                     </tbody>
                 </table>
@@ -404,35 +403,41 @@
                 <div class="container">
                     <div class="row">
                         <div class="col-sm-4">
-                            <button style="font-size: 20px" alt={{name}} class="btn btn-lg btn-block btn-primary" onclick=popular()>
+                            <button style="font-size: 20px" name={{name}} class="btn btn-lg btn-block btn-primary"
+                                    onclick=popular()>
                                 <b>Программы</b></button>
                         </div>
                         <div class="col-sm-4">
-                            <button style="font-size: 20px" alt={{name}} class="btn btn-lg btn-block btn-primary" onclick=kpd()><b>Эффективность</b>
+                            <button style="font-size: 20px" name={{name}} class="btn btn-lg btn-block btn-primary"
+                                    onclick=kpd()><b>Эффективность</b>
                             </button>
                         </div>
                         <div class="col-sm-4">
-                            <button style="font-size: 20px" alt={{name}} class="btn btn-lg btn-block btn-primary" onclick=screens()>
+                            <button style="font-size: 20px" name={{name}} class="btn btn-lg btn-block btn-primary"
+                                    onclick=screens()>
                                 <b>Фотоотчет</b>
                             </button>
                         </div>
                         <div class="col-sm-4">
-                            <button style="font-size: 20px" alt={{name}} class="btn btn-lg btn-block btn-primary" onclick=clicks()>
+                            <button style="font-size: 20px" name={{name}} class="btn btn-lg btn-block btn-primary"
+                                    onclick=clicks()>
                                 <b>Клики</b>
                             </button>
                         </div>
                         <!--<div class="col-sm-4">-->
-                            <!--<button style="font-size: 20px" alt={{name}} class="btn btn-lg btn-block btn-primary" onclick=rating(this)>-->
-                                <!--<b>Рейтинг</b>-->
-                            <!--</button>-->
+                        <!--<button style="font-size: 20px" alt={{name}} class="btn btn-lg btn-block btn-primary" onclick=rating(this)>-->
+                        <!--<b>Рейтинг</b>-->
+                        <!--</button>-->
                         <!--</div>-->
                         <div class="col-sm-4">
-                            <button style="font-size: 20px" alt={{name}} class="btn btn-lg btn-block btn-primary" onclick=timetable()>
+                            <button style="font-size: 20px" name={{name}} class="btn btn-lg btn-block btn-primary"
+                                    onclick=timetable()>
                                 <b>Расписание</b>
                             </button>
                         </div>
                         <div class="col-sm-4">
-                            <button style="font-size: 20px" alt={{name}} class="btn btn-lg btn-block btn-primary" onclick=task()>
+                            <button style="font-size: 20px" name={{name}} class="btn btn-lg btn-block btn-primary"
+                                    onclick=task()>
                                 <b>Задачи</b>
                             </button>
                         </div>
