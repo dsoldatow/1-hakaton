@@ -1,7 +1,7 @@
 import psycopg2
 from psycopg2.extras import RealDictCursor
 from werkzeug.contrib.cache import SimpleCache
-import server
+
 from base64 import b64encode
 from datetime import datetime
 

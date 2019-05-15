@@ -9,7 +9,7 @@ def make_photo():
     _, frame = cap.read()
     # rgb_frame = frame[:, :, ::-1]
     cap.release()
-    return b64encode(frame)
+    return b64encode(frame).decode()
 
 def is_user_here():
     cap = cv2.VideoCapture(0)
