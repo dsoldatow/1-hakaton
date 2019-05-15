@@ -5,9 +5,14 @@
    }
 
 
+.header {
+    width: 100%;
+    z-index: 1000;
+}
+
 .text-center {
     text-align: center!important;
-    background-color: rgba(128, 128, 128, 0.37);
+    background-color: white;
     border-bottom: 1px solid gray;
 }
 .btn-primary {
@@ -89,7 +94,6 @@ h3, h3 {
 
 .btn {
     background-color: white;
-    border: 3px solid white;
     color: black;
     font-family: TensorFont;
     display: inline-block;
@@ -101,7 +105,7 @@ h3, h3 {
     -moz-user-select: none;
     -ms-user-select: none;
     user-select: none;
-    border: 1px solid transparent;
+    border: 3px solid white;
     padding: .375rem .75rem;
     font-size: 1rem;
     line-height: 1.5;
@@ -116,7 +120,7 @@ h3, h3 {
     color: black;
 }
 
-    .btn:active{
+.btn:active{
     background-color: white;
     border-color: white;
     border-bottom: 3px solid #007bff;
@@ -133,12 +137,13 @@ body {
     color: #afbfcf;
     text-align: left;
     background-color: #fff;
+    height: 100%;
 }
 
 .logo {
-    position:absolute;
-    top:10px;
-    left:100px;
+    position: absolute;
+    top: 10px;
+    left: 100px;
 }
 
 .img {
@@ -153,3 +158,28 @@ body {
 .search {
     width: 1000px;
 }
+
+
+.user-page {
+    width: 100%;
+    text-align: center;
+    display: grid;
+    grid-template-areas: 'user-profile user-data';
+
+}
+
+.user-profile {
+    grid-area: user-profile;
+}
+
+
+.user-profile img {
+    border-radius: 60px; /* Радиус скругления */
+    box-shadow: 0 0 7px #666; /* Параметры тени */
+}
+
+.user-data {
+    grid-area: user-data;
+    width: 750px;
+}
+

@@ -1,150 +1,142 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<meta charset="UTF-8">
-	<title>Главная</title>
-	<script src="http://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.2/angular.min.js"></script>
-	<!--<script src="http://netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>-->
-	<!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">-->
-	<link href="css/bootstrap.min.css" rel="stylesheet">
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css">
-	<link rel="stylesheet" href="styles.css">
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.6/umd/popper.min.js"></script>
-	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js"></script>
-	<script type="text/javascript">
-		var app = angular.module("Tensor", []);
-		app.controller("TensorController", function($scope, $http){
-			$scope.test = function(event){
-				debugger
-			}
-			var TC = this;
-			TC.database = [];
-			TC.loadList = function(){
-				var text = document.getElementById("us").value;
-				if (text == "") text = "0";
-				$http
-					.get('http://192.168.1.50:8080/getusers/'+text)
-					.success(function (result){
-						TC.database = result;
-					})
-					.error(function (error){
-						<!--alert("Error"+error);-->
-					});
-			};
-			window.getUser = function(container){
-				$http
-					.get('http://192.168.1.50:8080/users/'+container.id)
-					.success(function (result) {
-						$scope.surname = result.surname + ' ' + result.name;
-						$scope.photo = result.photo;
-						$scope.status = result.status;
-						$scope.one = result.date[0][1];
-						$scope.two = result.date[1][1];
-						$scope.three = result.date[2][1];
-						$scope.four = result.date[3][1];
-						$scope.five = result.date[4][1];
-						$scope.s_one = result.date[0][0];
-						$scope.s_two = result.date[1][0];
-						$scope.s_three = result.date[2][0];
-						$scope.s_four = result.date[3][0];
-						$scope.s_five = result.date[4][0];
-					})
-					.error(function (error){
-						<!--alert("Error"+error);-->;
-					});
-			};
-			window.setInterval(
-					function updateDiv1(){
-						TC.loadList();
-					}, 5000
-			);
-			TC.loadList();
-		});
-	</script>
+    <meta charset="UTF-8">
+    <title>Главная</title>
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.2/angular.min.js"></script>
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <!--<script src="http://netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>-->
+    <!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">-->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.6/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js"></script>
+    <script type="text/javascript">
+        var app = angular.module("Tensor", []);
+        app.controller("TensorController", function ($scope, $http) {
+            $scope.test = function (event) {
+                debugger
+            }
+            var TC = this;
+            TC.database = [];
+            TC.loadList = function () {
+                var text = document.getElementById("us").value;
+                if (text == "") text = "0";
+
+
+                TC.database = [{
+                    surname: 'Mamedov',
+                    name: 'Valentin',
+                    photo: 'https://i.ytimg.com/vi/4UGpTctwuY0/maxresdefault.jpg'
+                }, {
+                    surname: 'Mamedov',
+                    name: 'Valentin',
+                    photo: 'https://i.ytimg.com/vi/4UGpTctwuY0/maxresdefault.jpg'
+                }, {
+                    surname: 'Mamedov',
+                    name: 'Valentin',
+                    photo: 'https://i.ytimg.com/vi/4UGpTctwuY0/maxresdefault.jpg'
+                }, {
+                    surname: 'Mamedov',
+                    name: 'Valentin',
+                    photo: 'https://i.ytimg.com/vi/4UGpTctwuY0/maxresdefault.jpg'
+                }, {
+                    surname: 'Mamedov',
+                    name: 'Valentin',
+                    photo: 'https://i.ytimg.com/vi/4UGpTctwuY0/maxresdefault.jpg'
+                }]
+
+
+                // $http
+                // 	.get('http://0.0.0.0:8080/getusers/'+text)
+                // 	.success(function (result){
+                // 		TC.database = result;
+                // 	})
+                // 	.error(function (error){
+                // 		<!--alert("Error"+error);-->
+                // 	});
+            };
+            window.getUser = function (container) {
+                $http
+                    .get('http://192.168.1.50:8080/users/' + container.id)
+                    .success(function (result) {
+                        $scope.surname = result.surname + ' ' + result.name;
+                        $scope.photo = result.photo;
+                        $scope.status = result.status;
+                        $scope.one = result.date[0][1];
+                        $scope.two = result.date[1][1];
+                        $scope.three = result.date[2][1];
+                        $scope.four = result.date[3][1];
+                        $scope.five = result.date[4][1];
+                        $scope.s_one = result.date[0][0];
+                        $scope.s_two = result.date[1][0];
+                        $scope.s_three = result.date[2][0];
+                        $scope.s_four = result.date[3][0];
+                        $scope.s_five = result.date[4][0];
+                    })
+                    .error(function (error) {
+                        <!--alert("Error"+error);-->
+                        ;
+                    });
+            };
+            window.setInterval(
+                function updateDiv1() {
+                    TC.loadList();
+                }, 5000
+            );
+            window.user_page = function (container) {
+                document.location.href = 'user.html?' + container.surname
+            }
+            TC.loadList();
+        });
+    </script>
 </head>
-<body ng-app = "Tensor" ng-controller="TensorController as tc">
-	<!-- Модальное окно -->
-	<div id="exampleModalLive" class="modal fade"  tabindex="-1" role="dialog" aria-labelledby="exampleModalLiveLabel" aria-hidden="true">
-	  <div class="modal-dialog" role="document">
-	  	<div class="modal-content">
-	  		<div class="modal-header">
-	  			<h3 class="modal-title">{{status}}</h3>
-	  		</div>
-	  		<div class="modal-body">
-	  			<h3>{{surname}}</h3>
-				<div class="row">
-					<div><img class="img col-sm-12" src="data:image/png;base64, {{photo}}"/></br></div>
-					<div class="table col-sm-4">
-						<thead></thead>
-						<tbody>
-						<td><font color="black"><b>{{one}}</b></br></font></td><td><font color="black">{{s_one}}</br></font></td>
-							<td><font color="black"><b>{{two}}</b></br></font></td><td><font color="black">{{s_two}}</br></font></td>
-							<td><font color="black"><b>{{three}}</b></br></font></td><td><font color="black">{{s_three}}</br></font></td>
-							<td><font color="black"><b>{{four}}</b></br></font></td><td><font color="black">{{s_four}}</br></font></td>
-							<td><font color="black"><b>{{five}}</b></br></font></td><td><font color="black">{{s_five}}</br></font></td>
-						</tbody>
-					</div>
-				</div>
-	  		</div>
-	  		<div class="modal-footer">
-				<button type="button" class="btn btn-secondary" data-dismiss="modal">Закрыть</button>
-			</div>
-	  	</div>
-	  </div>
-	</div>
-	<!-- Конец модального -->
-	<div class="jumbotron text-center">
-		<object type="image/svg+xml" class="logo" data="logo.svg" width="150" height="150"  >
-		  Your browser does not support SVG
-		</object>
-	  <h1><b>СБИС. Большой брат</b></h1>
-	</div>
-	<bodybutton>
-	<div class="container">
-	  <div class="row">
-	    <div class="col-sm-4">
-			<button class="btn btn-lg btn-block btn-primary" onclick="location.href='index.html'"><b>Список сотрудников</b></button>
-	    </div>
-	    <div class="col-sm-4">	
-			<button class="btn btn-lg btn-block btn-primary" onclick="location.href='map.html'"><b>Карта</b></button>
-	    </div>
-	    <div class="col-sm-4">
-			<button class="btn btn-lg btn-block btn-primary" onclick="location.href='camer.html'"><b>Камеры</b></button>
-	    </div>
-	  </div>
-	</div>
-		</bodybutton>
-	<div class="offset-sm-4 col-sm-6">
-		<h3>Поиск</h3>
-		<form ng-submit = "tc.loadList()">
-			<input id="us" type="text" size="50"/>
-			<input type="submit"/>
-		</form>
-	</div>
-	<div class="row justify-content-center" >
-		<div id="here" class="col-sm-6">
-			<table class="table">
-				<thead>
-					<tr>
-				        <th>Фото</th>
-						<th>Фамилия</th>
-						<th>Имя</th>
-				        <th>Статус</th>
-						<th>Последний раз замечен</th>
-				    </tr>
-				</thead>
-				<tbody>
-					<tr ng-repeat='user in tc.database'>
-				        <td><a href="#exampleModalLive"><img id={{user.id}} class="round" src="data:image/png;base64, {{user.photo}} " width="150" height="150" onclick="getUser(this)" data-toggle="modal"  data-target="#exampleModalLive"/></a></td>
-				        <td>{{user.surname}}</td>
-						<td>{{user.name}}</td>
-						<td>{{user.status}}</td>
-						<td>{{user.date}}</td>
-				    </tr>
-				</tbody>
-			</table>
-		</div>
-	</div>
+<body ng-app="Tensor" ng-controller="TensorController as tc">
+
+
+
+
+
+<div class="header jumbotron text-center" style="height: 30px;">
+    <object class="logo" data="https://helpme1c.ru/wp-content/uploads/2015/02/logo_42.png" width="180" height="120" onclick="location.href='index.html'">
+        Your browser does not support SVG
+    </object>
+    <h1><b>Big Brother</b></h1>
+</div>
+
+<div class="offset-sm-4 col-sm-6">
+    <h3>Поиск</h3>
+    <form ng-submit="tc.loadList()">
+        <input id="us" type="text" size="50"/>
+        <input type="submit"/>
+    </form>
+</div>
+<div class="row justify-content-center" style = "height:600px; overflow-y: scroll;">
+    <div id="here" class="col-sm-6">
+        <table class="table">
+            <thead>
+            <tr>
+                <th>Фото</th>
+                <th>Фамилия</th>
+                <th>Имя</th>
+                <th>Статус</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat='user in tc.database'>
+                <td><a href="#exampleModalLive"><img id={{user.id}} class="round"
+                                                     src={{user.photo}}
+                                                     width="150" height="150" onclick=user_page(this)
+                                                     data-toggle="modal" data-target="#exampleModalLive"/></a></td>
+                <td>{{user.surname}}</td>
+                <td>{{user.name}}</td>
+                <td>1C программист</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
 </body>
 </html>
