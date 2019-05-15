@@ -7,12 +7,14 @@ from threading import Thread
 import time
 import requests
 import predObr
+import json
+from base64 import b64encode
 
 # get_active_window()
 active_hist = []
 photo = camera.make_photo()
 screenshot = screen.get_screen_shot()
-clicks = []
+clicks = {}
 
 
 def active_progs():
@@ -57,17 +59,17 @@ def main():
     with open('start.txt', 'r') as file:
         name, surname = file.readline().split()
         start_photo = get_photo()
-        requests.post("http://localhost:5050/addUser", data={"name": name, "surname": surname, "photo": start_photo})
-    time.slip(300)
+        requests.post("http://localhost:5050/add_user", data=json.dumps({"name": name, "surname": surname, "photo": b64encode(start_photo).decode()}))
+    time.sleep(10)
     while True:
         photo = camera.make_photo()
         screenshot = screen.get_screen_shot()
-        requests.post("http://localhost:5050/addInfo", data={"surname": surname,
-                                                             "date": datetime.datetime.now(),
-                                                             "active_hist": active_hist,
-                                                             "photo": photo,
-                                                             "screenshot": screenshot,
-                                                             "clicks": clicks})
+        requests.post("http://localhost:5050/addInfo", data=json.dumps({"surname": surname,
+                                                                       "date": str(datetime.datetime.now()),
+                                                                       "active_hist": active_hist,
+                                                                       "photo": b64encode(photo).decode(),
+                                                                       "screenshot": screenshot,
+                                                                       "clicks": clicks}))
         time.sleep(30)
 
 

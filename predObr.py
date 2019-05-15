@@ -1,12 +1,11 @@
 
 from flask import Flask, request
 
-from werkzeug import abort
+# from werkzeug import abort
 from flask import Flask, request
 import urllib.request
 import json
 from multiprocessing import Process
-from server_routes import db
 import os
 import random
 import string
@@ -21,7 +20,7 @@ harm_progs = {"dota","telegram"}
 active_progs = set([])
 @app.route("/add_user", methods=['POST'])
 def add_user():
-    requests.post("http://localhost:8080/addUser",data =request.data )
+    requests.post("http://localhost:8080/addUser",data =json.dumps(json.loads(request.data)) )
     return "",200,{'Access-Control-Allow-Origin': '*'}
 @app.route("/addInfo",methods = ['POST'])
 def add_info():

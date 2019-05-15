@@ -23,7 +23,7 @@ def is_user_here():
             cap.release()
             return {'is_here': True, 'photo': b''}
     cap.release()
-    return {'is_here': False, 'photo': b64encode(frame)}
+    return {'is_here': False, 'photo': b64encode(frame).decode()}
 
 
 if __name__ == '__main__':
