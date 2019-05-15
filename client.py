@@ -7,6 +7,7 @@ from threading import Thread
 import time
 import requests
 import predObr
+import json
 
 # get_active_window()
 active_hist = []
@@ -57,17 +58,17 @@ def main():
     with open('start.txt', 'r') as file:
         name, surname = file.readline().split()
         start_photo = get_photo()
-        requests.post("http://localhost:5050/addUser", data={"name": name, "surname": surname, "photo": start_photo})
-    time.slip(300)
+        requests.post("http://localhost:5050/addUser", data=json.dump({"name": name, "surname": surname, "photo": start_photo}))
+    time.sleep(300)
     while True:
         photo = camera.make_photo()
         screenshot = screen.get_screen_shot()
-        requests.post("http://localhost:5050/addInfo", data={"surname": surname,
-                                                             "date": datetime.datetime.now(),
-                                                             "active_hist": active_hist,
-                                                             "photo": photo,
-                                                             "screenshot": screenshot,
-                                                             "clicks": clicks})
+        requests.post("http://localhost:5050/addInfo", data=json.dump({"surname": surname,
+                                                                       "date": datetime.datetime.now(),
+                                                                       "active_hist": active_hist,
+                                                                       "photo": photo,
+                                                                       "screenshot": screenshot,
+                                                                       "clicks": clicks}))
         time.sleep(30)
 
 
