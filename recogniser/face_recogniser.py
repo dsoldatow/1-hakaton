@@ -2,6 +2,7 @@ import face_recognition
 import cv2
 import time
 from base64 import b64encode
+import os
 
 
 def make_photo():
@@ -13,6 +14,7 @@ def make_photo():
     with open("photo.png", 'rb') as fin:
         img_data = fin.read()
         encoded_img = b64encode(img_data).decode()
+    os.remove("photo.png")
     return encoded_img
 
 def is_user_here():
@@ -23,11 +25,16 @@ def is_user_here():
         rgb_frame = frame[:, :, ::-1]
         # img = face_recognition.load_image_file(frame)
         face_location = face_recognition.face_locations(rgb_frame)
+        cv2.imwrite("photo.png", frame)
+        with open("photo.png", 'rb') as fin:
+            img_data = fin.read()
+            encoded_img = b64encode(img_data).decode()
+        os.remove("photo.png")
         if len(face_location) != 0:
             cap.release()
-            return {'is_here': True, 'photo': b''}
+            return {'is_here': True, 'photo': ''}
     cap.release()
-    return {'is_here': False, 'photo': b64encode(frame).decode()}
+    return {'is_here': False, 'photo': encoded_img}
 
 
 if __name__ == '__main__':
