@@ -67,12 +67,74 @@ def add_info(dataDict):
     
 
 
-# def get_info(surname):
-#     dataVal9 = {}
-#     etfs = {"x":sql_execute("""
-#                             SELECT *
-#                             FROM efs""")
-#             }
+def get_info(surname):
+    dataVal9 = {}
+    efs = {"x":sql_execute("""
+                            SELECT date
+                            FROM efc
+                            WHERE surname = '{surname}'""".format(surname = surname)),
+            "y":sql_execute("""
+                            SELECT coef
+                            FROM efc
+                            WHERE surname = '{surname}'""".format(surname = surname))
+            }
+    scr = {
+        "screenshots" : sql_execute("""
+                            SELECT photo
+                            FROM src
+                            WHERE surname = '{surname}'""".format(surname = surname))
+    }
+    photos = {
+        "photos": sql_execute("""
+                                SELECT photo
+                                FROM photo
+                                WHERE surname = '{surname}'""".format(surname=surname))
+    }
+    clicks = {
+        "right": sql_execute("""
+                                SELECT rightt
+                                FROM clicks
+                                WHERE surname = '{surname}'""".format(surname=surname)),
+        "left": sql_execute("""
+                                SELECT leftt
+                                FROM clicks
+                                WHERE surname ='{surname}'""".format(surname=surname)),
+        "total":sql_execute("""
+                                SELECT total
+                                FROM clicks
+                                WHERE surname = '{surname}'""".format(surname=surname)),
+    }
+    history = {
+        "ti" :sql_execute("""
+                                SELECT time
+                                FROM history
+                                WHERE surname = '{surname}'""".format(surname=surname)),
+        "pr":sql_execute("""
+                                SELECT prog
+                                FROM history
+                                WHERE surname = '{surname}'""".format(surname=surname))
+    }
+    user  = {"name" : sql_execute("""
+                                SELECT name
+                                FROM users
+                                WHERE surname = '{surname}'
+                                limit 1""".format(surname=surname)),
+             "photo": sql_execute("""
+                                SELECT photo
+                                FROM users
+                                WHERE surname = '{surname}'
+                                limit 1""".format(surname=surname))}
+    dataset = {
+        "efs":efs,
+        "screenshots":scr,
+        "photos":photos,
+        "clicks":clicks,
+        "history":history,
+        "surname":surname,
+        "name":user.get("name"),
+        "photo":user.get("photo")
+    }
+    return dataset
 
 def get_users():
 
